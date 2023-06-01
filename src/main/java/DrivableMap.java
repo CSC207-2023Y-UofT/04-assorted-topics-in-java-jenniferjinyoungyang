@@ -28,8 +28,22 @@ class DrivableMap {
      *       Return true if the Drivable was added to drivable_map.
      */
 
-
-
+    /**
+     * Add a pair of id and a Drivable object to the drivable_map
+     * if id does not already appear as a key in the drivable_map
+     *
+     * @param id the id of a drivable object
+     * @param o a drivable object
+     * @return true if the drivable object was added to the drivable_map, false otherwise
+     */
+    public boolean addDrivable(String id, Drivable o) {
+        if (!this.drivable_map.containsKey(id)) {
+            this.drivable_map.put(id, o);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /* TODO: Write a method named hasFasterThan that takes an int (a speed)
      *       and returns true iff there is at least one item in drivable_map
@@ -37,17 +51,38 @@ class DrivableMap {
      * You may want to use drivable_map.keys() or drivable_map.values() to
      * iterate through drivable_map.
      */
-
-
-
-
+    /**
+     * Return true iff there is at least one item in drivable_map that has a maxSpeed >= the speed given.
+     *
+     * @param speed a given speed
+     * @return true if there is at least one item in drivable_map that has a maxSpeed >= the speed given,
+     *         false otherwise
+     */
+    public boolean hasFasterThan(int speed) {
+        for (Drivable drivable : drivable_map.values()) {
+            if (drivable.getMaxSpeed() >= speed) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /* TODO: Write a method named getTradable that takes no arguments and
      *       returns a List containing all of the Tradable items in
      *       drivable_map.
      */
-
-
-
-    
+    /**
+     * Return a list containing all the Tradable objects in drivable_map
+     *
+     * @return a list containing all the Tradable objects in drivable_map
+     */
+    public List<Tradable> getTradable() {
+        List<Tradable> tradables = new ArrayList<>();
+        for (Drivable drivable : drivable_map.values()) {
+            if (drivable instanceof Tradable) {
+                tradables.add((Tradable) drivable);
+            }
+        }
+        return tradables;
+    }
 }
